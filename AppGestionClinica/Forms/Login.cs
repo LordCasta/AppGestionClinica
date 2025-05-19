@@ -31,6 +31,22 @@ namespace AppGestionClinica.Forms
                 lblError.Visible = true;
                 return;
             }
+
+            var usuario = _usuarioRepo.ObtenerPorCredenciales(user, password);
+
+            if (usuario != null)
+            {
+                lblError.Visible = false;
+                // Aquí puedes abrir el formulario principal o realizar otras acciones según el rol del usuario
+                MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide(); // Oculta el formulario de login
+                // Aquí podrías abrir el formulario principal de la aplicación
+            }
+            else
+            {
+                lblError.Text = "Usuario o contraseña incorrectos";
+                lblError.Visible = true;
+            }
         }
     }
 }
