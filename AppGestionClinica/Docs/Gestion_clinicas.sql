@@ -62,6 +62,17 @@ CREATE TABLE Pagos (
     MetodoPago NVARCHAR(50),
     FOREIGN KEY (TratamientoID) REFERENCES Tratamientos(TratamientoID)
 );
+
+
+--Tabla: Usuarios
+CREATE TABLE Usuarios (
+    UsuarioID INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(50) NOT NULL,
+    Password NVARCHAR(50) NOT NULL,
+    Rol NVARCHAR(20) NOT NULL -- Admin, Recepcionista, etc.
+);
+
+
 GO;
 
 --SP Registrar cita
