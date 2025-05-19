@@ -8,11 +8,11 @@ namespace AppGestionClinica.Entities
 {
     public class Cita
     {
-        int CitaID { get; set; }
-        int PacienteID { get; set; }
-        int DoctorID { get; set; }
-        DateTime Fecha { get; set; }
-        DateTime Hora { get; set; }
-        string Estado { get; set; } // Pendiente, Completada, Cancelada
+        public int CitaID { get; set; }
+        public int PacienteID { get; set; }
+        public int DoctorID { get; set; }
+        public DateTime Fecha { get; set; }
+        public TimeSpan Hora { get; set; }
+        public string Estado { get; set; } // Pendiente, Completada, Cancelada
     }
 }
