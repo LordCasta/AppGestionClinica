@@ -1,16 +1,16 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace AppGestionClinica.Data
 {
     public class Database
     {
-        private static SqlConnection _connection;
+        private static SqlConnection _connection; 
         private static readonly object _lock = new object();
 
         public static SqlConnection GetConnection()
