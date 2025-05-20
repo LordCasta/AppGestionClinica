@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppGestionClinica.Forms.Administrar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ namespace AppGestionClinica.Forms
         private void btnDoctores_Click(object sender, EventArgs e)
         {
             this.Close();
-            new frmModDoctores().ShowDialog();
+            new FrmModDoctores().ShowDialog();
         }
     }
 }
