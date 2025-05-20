@@ -203,3 +203,8 @@ BEGIN
     WHERE C.Fecha = CAST(GETDATE() + 1 AS DATE)
       AND C.Estado = 'Pendiente';
 END;
+
+
+--Usuarios base para usar el programa
+INSERT INTO Usuarios (Username, Password, Rol)
+VALUES ('admin', '123', 'Administrador');
