@@ -37,10 +37,24 @@ namespace AppGestionClinica.Forms
             if (usuario != null)
             {
                 lblError.Visible = false;
-                // Aquí puedes abrir el formulario principal o realizar otras acciones según el rol del usuario
                 MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide(); // Oculta el formulario de login
-                // Aquí podrías abrir el formulario principal de la aplicación
+                this.Hide(); 
+                
+                switch(usuario.Rol)
+                {
+                    case "Administrador":
+                        new FrmAdmin().ShowDialog();
+                        break;
+                    case "Doctor":
+                        //new FrmDoctor().ShowDialog();
+                        break;
+                    case "Recepcionista":
+                        //new FrmRecepcionista().ShowDialog();
+                        break;
+                    default:
+                        MessageBox.Show("Rol no reconocido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             else
             {

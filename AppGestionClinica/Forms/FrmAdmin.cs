@@ -16,5 +16,11 @@ namespace AppGestionClinica.Forms
         {
             InitializeComponent();
         }
+
+        private void btnDoctores_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new frmModDoctores().ShowDialog();
+        }
     }
 }
