@@ -67,6 +67,7 @@ CREATE TABLE Pagos (
 --Tabla: Usuarios
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
+    DoctorID INT NULL,
     Username NVARCHAR(50) NOT NULL,
     Password NVARCHAR(50) NOT NULL,
     Rol NVARCHAR(20) NOT NULL,  -- Admin, Recepcionista, etc.
