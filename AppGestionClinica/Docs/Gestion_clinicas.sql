@@ -19,7 +19,7 @@ CREATE TABLE Doctores (
     Telefono NVARCHAR(20)
 );
 
--- Tabla: HorariosDoctores (La que se pasó)
+-- Tabla: HorariosDoctores (La que se pasï¿½)
 CREATE TABLE HorariosDoctores (
     HorarioID INT PRIMARY KEY IDENTITY(1,1),
     DoctorID INT,
@@ -47,7 +47,7 @@ CREATE TABLE Tratamientos (
     PacienteID INT,
     TipoTratamiento NVARCHAR(100),
     FechaInicio DATE,
-    Duracion INT, -- Días
+    Duracion INT, -- Dï¿½as
     CostoTotal DECIMAL(10,2),
     SaldoPendiente DECIMAL(10,2),
     FOREIGN KEY (PacienteID) REFERENCES Pacientes(PacienteID)
@@ -69,7 +69,8 @@ CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
     Username NVARCHAR(50) NOT NULL,
     Password NVARCHAR(50) NOT NULL,
-    Rol NVARCHAR(20) NOT NULL -- Admin, Recepcionista, etc.
+    Rol NVARCHAR(20) NOT NULL,  -- Admin, Recepcionista, etc.
+    DoctorID INT NULL
 );
 
 
@@ -85,7 +86,7 @@ AS
 BEGIN
     DECLARE @DiaSemana INT = DATEPART(WEEKDAY, @Fecha);
 
-    -- Validar que el doctor trabaje ese día y hora
+    -- Validar que el doctor trabaje ese dï¿½a y hora
     IF NOT EXISTS (
         SELECT 1 FROM HorariosDoctores
         WHERE DoctorID = @DoctorID
@@ -191,7 +192,7 @@ END;
 GO;
 
 
---SP para notificar la próxima cita
+--SP para notificar la prï¿½xima cita
 CREATE PROCEDURE SP_NotificarProximaCita
 AS
 BEGIN
