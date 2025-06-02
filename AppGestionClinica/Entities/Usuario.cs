@@ -12,5 +12,6 @@ namespace AppGestionClinica.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
-    }
+        public int? DoctorID { get; set; } // Relación opcional con Doctor, si es un doctor
+}
 }

@@ -70,7 +70,7 @@ CREATE TABLE Usuarios (
     Username NVARCHAR(50) NOT NULL,
     Password NVARCHAR(50) NOT NULL,
     Rol NVARCHAR(20) NOT NULL,  -- Admin, Recepcionista, etc.
-    DoctorID INT NULL
+    FOREIGN KEY (DoctorID) REFERENCES Doctores(DoctorID)
 );
 
 
