@@ -95,5 +95,11 @@ namespace AppGestionClinica.Forms.Recepcion
             MessageBox.Show("Cita registrada.");
             CargarHorasDisponibles();
         }
+
+        private void lblVerCita_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new FrmVerCitas().ShowDialog();
+        }
     }
 }

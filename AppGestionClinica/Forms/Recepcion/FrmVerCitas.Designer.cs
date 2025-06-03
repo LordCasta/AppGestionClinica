@@ -31,8 +31,8 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            cmbDoctores = new ComboBox();
-            cmbPacientes = new ComboBox();
+            cmbDoctor = new ComboBox();
+            cmbPaciente = new ComboBox();
             dgvDoctores = new DataGridView();
             dgvPacientes = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvDoctores).BeginInit();
@@ -69,21 +69,21 @@
             label3.TabIndex = 2;
             label3.Text = "Pacientes";
             // 
-            // cmbDoctores
+            // cmbDoctor
             // 
-            cmbDoctores.FormattingEnabled = true;
-            cmbDoctores.Location = new Point(52, 97);
-            cmbDoctores.Name = "cmbDoctores";
-            cmbDoctores.Size = new Size(191, 23);
-            cmbDoctores.TabIndex = 3;
+            cmbDoctor.FormattingEnabled = true;
+            cmbDoctor.Location = new Point(52, 97);
+            cmbDoctor.Name = "cmbDoctor";
+            cmbDoctor.Size = new Size(191, 23);
+            cmbDoctor.TabIndex = 3;
             // 
-            // cmbPacientes
+            // cmbPaciente
             // 
-            cmbPacientes.FormattingEnabled = true;
-            cmbPacientes.Location = new Point(553, 97);
-            cmbPacientes.Name = "cmbPacientes";
-            cmbPacientes.Size = new Size(191, 23);
-            cmbPacientes.TabIndex = 4;
+            cmbPaciente.FormattingEnabled = true;
+            cmbPaciente.Location = new Point(553, 97);
+            cmbPaciente.Name = "cmbPaciente";
+            cmbPaciente.Size = new Size(191, 23);
+            cmbPaciente.TabIndex = 4;
             // 
             // dgvDoctores
             // 
@@ -108,8 +108,8 @@
             ClientSize = new Size(823, 499);
             Controls.Add(dgvPacientes);
             Controls.Add(dgvDoctores);
-            Controls.Add(cmbPacientes);
-            Controls.Add(cmbDoctores);
+            Controls.Add(cmbPaciente);
+            Controls.Add(cmbDoctor);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -126,8 +126,8 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private ComboBox cmbDoctores;
-        private ComboBox cmbPacientes;
+        private ComboBox cmbDoctor;
+        private ComboBox cmbPaciente;
         private DataGridView dgvDoctores;
         private DataGridView dgvPacientes;
     }

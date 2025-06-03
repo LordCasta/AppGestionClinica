@@ -140,6 +140,7 @@
             lblVerCita.Size = new Size(71, 21);
             lblVerCita.TabIndex = 10;
             lblVerCita.Text = "Ver citas";
+            lblVerCita.Click += lblVerCita_Click;
             // 
             // FrmCitas
             // 
