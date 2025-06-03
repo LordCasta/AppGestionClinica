@@ -29,5 +29,11 @@ namespace AppGestionClinica.Forms
             this.Close();
             new FrmModUsuarios().ShowDialog();
         }
+
+        private void btnPacientes_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new FrmModPacientes().ShowDialog();
+        }
     }
 }
