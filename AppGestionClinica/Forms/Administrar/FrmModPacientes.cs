@@ -1,4 +1,5 @@
-﻿using AppGestionClinica.Entities;
+﻿using AppGestionClinica.Data;
+using AppGestionClinica.Entities;
 using AppGestionClinica.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace AppGestionClinica.Forms.Administrar
 {
     public partial class FrmModPacientes : Form
     {
-        private readonly PacienteRepository _repo = new PacienteRepository();
+        private readonly UnitOfWork _uof = new UnitOfWork();
         private int? pacienteSeleccionadoId = null;
 
         public FrmModPacientes()
@@ -27,7 +28,7 @@ namespace AppGestionClinica.Forms.Administrar
         {
             dgvPacientes.Columns.Clear();
             dgvPacientes.DataSource = null;
-            dgvPacientes.DataSource = _repo.ObtenerTodos();
+            dgvPacientes.DataSource = _uof.Pacientes.ObtenerTodos();
 
             var btnEditar = new DataGridViewButtonColumn();
             btnEditar.HeaderText = "Editar";
@@ -64,7 +65,7 @@ namespace AppGestionClinica.Forms.Administrar
                 var confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirmar == DialogResult.Yes)
                 {
-                    _repo.Eliminar(pacienteSeleccionadoId.Value);
+                    _uof.Pacientes.Eliminar(pacienteSeleccionadoId.Value);
                     MessageBox.Show("Paciente eliminado.");
                     LimpiarFormulario();
                     CargarPacientes();
@@ -91,13 +92,13 @@ namespace AppGestionClinica.Forms.Administrar
 
             if (pacienteSeleccionadoId == null)
             {
-                _repo.Agregar(paciente);
+                _uof.Pacientes.Agregar(paciente);
                 MessageBox.Show("Paciente agregado.");
             }
             else
             {
                 paciente.PacienteID = pacienteSeleccionadoId.Value;
-                _repo.Actualizar(paciente);
+                _uof.Pacientes.Actualizar(paciente);
                 MessageBox.Show("Paciente actualizado.");
             }
 

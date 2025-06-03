@@ -1,4 +1,5 @@
-﻿using AppGestionClinica.Entities;
+﻿using AppGestionClinica.Data;
+using AppGestionClinica.Entities;
 using AppGestionClinica.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace AppGestionClinica.Forms.Administrar
 {
     public partial class FrmModUsuarios : Form
     {
-        private readonly UsuarioRepository _repoUsuario = new UsuarioRepository();
-        private readonly DoctorRepository _repoDoctor = new DoctorRepository();
+        private readonly UnitOfWork _uof = new UnitOfWork();
 
         private int? usuarioSeleccionadoId = null;
 
@@ -52,8 +52,8 @@ namespace AppGestionClinica.Forms.Administrar
         private void CargarDoctoresDisponibles()
         {
             //Se seleccionan los doctores que no tienen un usuario asignado
-            var doctores = _repoDoctor.ObtenerTodos();
-            var usuarios = _repoUsuario.ObtenerTodos();
+            var doctores = _uof.Doctores.ObtenerTodos();
+            var usuarios = _uof.Usuarios.ObtenerTodos();
             var doctoresConUsuario = usuarios.Where(u => u.DoctorID.HasValue).Select(u => u.DoctorID.Value).ToList();
 
             var disponibles = doctores.Where(d => !doctoresConUsuario.Contains(d.DoctorID)).ToList();
@@ -67,7 +67,7 @@ namespace AppGestionClinica.Forms.Administrar
         {
             dgvUsuarios.Columns.Clear();
             dgvUsuarios.DataSource = null;
-            dgvUsuarios.DataSource = _repoUsuario.ObtenerTodos();
+            dgvUsuarios.DataSource = _uof.Usuarios.ObtenerTodos();
 
             var btnEditar = new DataGridViewButtonColumn();
             btnEditar.HeaderText = "Editar";
@@ -117,7 +117,7 @@ namespace AppGestionClinica.Forms.Administrar
                 var confirm = MessageBox.Show("¿Eliminar este usuario?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirm == DialogResult.Yes)
                 {
-                    _repoUsuario.Eliminar(usuarioSeleccionadoId.Value);
+                    _uof.Usuarios.Eliminar(usuarioSeleccionadoId.Value);
                     Limpiar();
                     CargarUsuarios();
                     MessageBox.Show("Usuario eliminado.");
@@ -158,18 +158,18 @@ namespace AppGestionClinica.Forms.Administrar
             {
                 if (usuario.DoctorID != null)
                 {
-                    _repoUsuario.AgregarDoctor(usuario, usuario.DoctorID.Value);
+                    _uof.Usuarios.AgregarDoctor(usuario, usuario.DoctorID.Value);
                 }
                 else
                 {
-                    _repoUsuario.Agregar(usuario);
+                    _uof.Usuarios.Agregar(usuario);
                 }
                 MessageBox.Show("Usuario registrado.");
             }
             else
             {
                 usuario.UsuarioID = usuarioSeleccionadoId.Value;
-                _repoUsuario.Actualizar(usuario);
+                _uof.Usuarios.Actualizar(usuario);
                 MessageBox.Show("Usuario actualizado.");
             }
 

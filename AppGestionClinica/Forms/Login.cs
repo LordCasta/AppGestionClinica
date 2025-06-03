@@ -1,4 +1,5 @@
-﻿using AppGestionClinica.Factory;
+﻿using AppGestionClinica.Data;
+using AppGestionClinica.Factory;
 using AppGestionClinica.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace AppGestionClinica.Forms
 {
     public partial class Login : Form
     {
-        private readonly UsuarioRepository _usuarioRepo = new UsuarioRepository();
+        private readonly UnitOfWork _uof = new UnitOfWork();
         public Login()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace AppGestionClinica.Forms
                 return;
             }
 
-            var usuario = _usuarioRepo.ObtenerPorCredenciales(user, password);
+            var usuario = _uof.Usuarios.ObtenerPorCredenciales(user, password);
 
             if (usuario != null)
             {

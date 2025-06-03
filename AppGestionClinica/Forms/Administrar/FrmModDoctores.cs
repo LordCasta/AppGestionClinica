@@ -1,4 +1,5 @@
-﻿using AppGestionClinica.Entities;
+﻿using AppGestionClinica.Data;
+using AppGestionClinica.Entities;
 using AppGestionClinica.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace AppGestionClinica.Forms.Administrar
 {
     public partial class FrmModDoctores : Form
     {
-        DoctorRepository repo = new DoctorRepository();
+        UnitOfWork repo = new UnitOfWork();
         BindingList<Doctor> listaDoctores;
         private int? doctorSeleccionadoId = null;
         public FrmModDoctores()
@@ -39,7 +40,7 @@ namespace AppGestionClinica.Forms.Administrar
 
         private void CargarDoctores()
         {
-            listaDoctores = new BindingList<Doctor>(repo.ObtenerTodos());
+            listaDoctores = new BindingList<Doctor>(repo.Doctores.ObtenerTodos());
             dgvDoctores.DataSource = listaDoctores;
 
             // Opcional: ocultar la columna ID si no quieres editarla
@@ -79,7 +80,7 @@ namespace AppGestionClinica.Forms.Administrar
                 Telefono = txtTelefono.Text
             };
 
-            repo.Agregar(doctor);
+            repo.Doctores.Agregar(doctor);
             MessageBox.Show("Doctor agregado.");
             LimpiarFormulario();
             CargarDoctores();
@@ -106,7 +107,7 @@ namespace AppGestionClinica.Forms.Administrar
                     Telefono = nuevoTel
                 };
 
-                repo.Actualizar(doctor);
+                repo.Doctores.Actualizar(doctor);
                 MessageBox.Show("Doctor actualizado.");
             }
             else if (dgvDoctores.Columns[e.ColumnIndex].HeaderText == "Eliminar")
@@ -114,7 +115,7 @@ namespace AppGestionClinica.Forms.Administrar
                 var confirmar = MessageBox.Show("¿Eliminar este doctor?", "Confirmar", MessageBoxButtons.YesNo);
                 if (confirmar == DialogResult.Yes)
                 {
-                    repo.Eliminar(doctorId);
+                    repo.Doctores.Eliminar(doctorId);
                     CargarDoctores();
                     MessageBox.Show("Doctor eliminado.");
                 }
