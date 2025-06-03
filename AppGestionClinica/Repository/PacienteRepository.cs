@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppGestionClinica.Repository
 {
-    public class PacienteRepository
+    public class PacienteRepository : Interfaces.IPacienteRepository
     {
         private readonly SqlConnection _conn;
         public PacienteRepository() => _conn = Database.GetConnection();
