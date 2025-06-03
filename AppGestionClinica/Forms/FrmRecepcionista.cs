@@ -23,5 +23,11 @@ namespace AppGestionClinica.Forms
             this.Close();
             new FrmCitas().ShowDialog();
         }
+
+        private void btnPagos_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new FrmPagos().ShowDialog();
+        }
     }
 }

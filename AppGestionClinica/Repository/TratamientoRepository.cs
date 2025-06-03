@@ -99,6 +99,15 @@ namespace AppGestionClinica.Repository
             cmd.ExecuteNonQuery();
         }
 
+        public void ActualizarSaldo(int tratamientoId, decimal nuevoSaldo)
+        {
+            const string sql = "UPDATE Tratamientos SET SaldoPendiente = @Saldo WHERE TratamientoID = @ID";
+
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@Saldo", nuevoSaldo);
+            cmd.Parameters.AddWithValue("@ID", tratamientoId);
+            cmd.ExecuteNonQuery();
+        }
         public void Eliminar(int id)
         {
             const string sql = "DELETE FROM Tratamientos WHERE TratamientoID=@id";

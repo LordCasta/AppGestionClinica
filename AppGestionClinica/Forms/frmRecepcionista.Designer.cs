@@ -61,6 +61,7 @@
             btnPagos.TabIndex = 2;
             btnPagos.Text = "Pagos";
             btnPagos.UseVisualStyleBackColor = true;
+            btnPagos.Click += btnPagos_Click;
             // 
             // frmRecepcionista
             // 

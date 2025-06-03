@@ -79,7 +79,6 @@ namespace AppGestionClinica.Repository
             return list;
         }
 
-      
 
         public void Eliminar(int id)
         {
