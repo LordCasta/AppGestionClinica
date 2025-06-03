@@ -15,34 +15,77 @@ namespace AppGestionClinica.Forms.Recepcion
     public partial class FrmVerCitas : Form
     {
         private readonly UnitOfWork _uow = new UnitOfWork();
+
         public FrmVerCitas()
         {
             InitializeComponent();
-            cmbDoctor.DataSource = _uow.Doctores.ObtenerTodos();
-            cmbDoctor.DisplayMember = "Nombre";
-            cmbDoctor.ValueMember = "DoctorID";
+            try
+            {
+                cmbDoctor.DataSource = _uow.Doctores.ObtenerTodos();
+                cmbDoctor.DisplayMember = "Nombre";
+                cmbDoctor.ValueMember = "DoctorID";
 
-            cmbPaciente.DataSource = _uow.Pacientes.ObtenerTodos();
-            cmbPaciente.DisplayMember = "Nombre";
-            cmbPaciente.ValueMember = "PacienteID";
+                cmbPaciente.DataSource = _uow.Pacientes.ObtenerTodos();
+                cmbPaciente.DisplayMember = "Nombre";
+                cmbPaciente.ValueMember = "PacienteID";
 
-            cmbDoctor.SelectedIndexChanged += (s, ev) => CargarCitasPorDoctor();
-            cmbPaciente.SelectedIndexChanged += (s, ev) => CargarCitasPorPaciente();
+                cmbDoctor.SelectedIndexChanged += (s, ev) =>
+                {
+                    try
+                    {
+                        CargarCitasPorDoctor();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cargar citas por doctor: " + ex.Message);
+                    }
+                };
+
+                cmbPaciente.SelectedIndexChanged += (s, ev) =>
+                {
+                    try
+                    {
+                        CargarCitasPorPaciente();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cargar citas por paciente: " + ex.Message);
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al inicializar el formulario de citas: " + ex.Message);
+            }
         }
 
         private void CargarCitasPorDoctor()
         {
-            if (cmbDoctor.SelectedItem is Entities.Doctor doctor)
+            try
             {
-                dgvDoctores.DataSource = _uow.Citas.ObtenerPorDoctor(doctor.DoctorID);
+                if (cmbDoctor.SelectedItem is Entities.Doctor doctor)
+                {
+                    dgvDoctores.DataSource = _uow.Citas.ObtenerPorDoctor(doctor.DoctorID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener citas del doctor: " + ex.Message);
             }
         }
 
         private void CargarCitasPorPaciente()
         {
-            if (cmbPaciente.SelectedItem is Paciente paciente)
+            try
             {
-                dgvPacientes.DataSource = _uow.Citas.ObtenerPorPaciente(paciente.PacienteID);
+                if (cmbPaciente.SelectedItem is Paciente paciente)
+                {
+                    dgvPacientes.DataSource = _uow.Citas.ObtenerPorPaciente(paciente.PacienteID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener citas del paciente: " + ex.Message);
             }
         }
     }
