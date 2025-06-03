@@ -35,15 +35,15 @@
             label4 = new Label();
             txtApellido = new TextBox();
             label5 = new Label();
-            dtpNacimiento = new DateTimePicker();
+            dtpFechaNac = new DateTimePicker();
             label6 = new Label();
             txtDireccion = new TextBox();
             label7 = new Label();
             txtTelefono = new TextBox();
             btnCrear = new Button();
-            dataGridView1 = new DataGridView();
+            dgvPacientes = new DataGridView();
             label8 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPacientes).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -107,12 +107,12 @@
             label5.TabIndex = 6;
             label5.Text = "Nacimiento";
             // 
-            // dtpNacimiento
+            // dtpFechaNac
             // 
-            dtpNacimiento.Location = new Point(96, 256);
-            dtpNacimiento.Name = "dtpNacimiento";
-            dtpNacimiento.Size = new Size(178, 23);
-            dtpNacimiento.TabIndex = 7;
+            dtpFechaNac.Location = new Point(96, 256);
+            dtpFechaNac.Name = "dtpFechaNac";
+            dtpFechaNac.Size = new Size(178, 23);
+            dtpFechaNac.TabIndex = 7;
             // 
             // label6
             // 
@@ -154,14 +154,16 @@
             btnCrear.TabIndex = 12;
             btnCrear.Text = "CREAR";
             btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.Click += btnCrear_Click;
             // 
-            // dataGridView1
+            // dgvPacientes
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(383, 118);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(481, 357);
-            dataGridView1.TabIndex = 13;
+            dgvPacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPacientes.Location = new Point(383, 118);
+            dgvPacientes.Name = "dgvPacientes";
+            dgvPacientes.Size = new Size(481, 357);
+            dgvPacientes.TabIndex = 13;
+            dgvPacientes.CellClick += dgvPacientes_CellClick;
             // 
             // label8
             // 
@@ -173,6 +175,7 @@
             label8.Size = new Size(44, 20);
             label8.TabIndex = 14;
             label8.Text = "Atrás";
+            label8.Click += label8_Click;
             // 
             // FrmModPacientes
             // 
@@ -180,13 +183,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(877, 519);
             Controls.Add(label8);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvPacientes);
             Controls.Add(btnCrear);
             Controls.Add(txtTelefono);
             Controls.Add(label7);
             Controls.Add(txtDireccion);
             Controls.Add(label6);
-            Controls.Add(dtpNacimiento);
+            Controls.Add(dtpFechaNac);
             Controls.Add(label5);
             Controls.Add(txtApellido);
             Controls.Add(label4);
@@ -196,7 +199,7 @@
             Controls.Add(label1);
             Name = "FrmModPacientes";
             Text = "FrmModPacientes";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPacientes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -210,13 +213,13 @@
         private Label label4;
         private TextBox txtApellido;
         private Label label5;
-        private DateTimePicker dtpNacimiento;
+        private DateTimePicker dtpFechaNac;
         private Label label6;
         private TextBox txtDireccion;
         private Label label7;
         private TextBox txtTelefono;
         private Button btnCrear;
-        private DataGridView dataGridView1;
+        private DataGridView dgvPacientes;
         private Label label8;
     }
 }
