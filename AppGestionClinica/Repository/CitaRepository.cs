@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppGestionClinica.Repository
 {
-    public class CitaRepository
+    public class CitaRepository : Interfaces.ICitaRepository
     {
         private readonly SqlConnection _conn;
         public CitaRepository() => _conn = Database.GetConnection();
