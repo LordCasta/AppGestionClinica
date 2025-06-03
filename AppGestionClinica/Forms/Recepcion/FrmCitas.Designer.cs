@@ -67,6 +67,7 @@
             cmbDoctor.Name = "cmbDoctor";
             cmbDoctor.Size = new Size(217, 23);
             cmbDoctor.TabIndex = 2;
+            cmbDoctor.SelectedIndexChanged += cmbDoctor_SelectedIndexChanged;
             // 
             // label3
             // 
@@ -100,6 +101,7 @@
             dtpFecha.Name = "dtpFecha";
             dtpFecha.Size = new Size(217, 23);
             dtpFecha.TabIndex = 6;
+            dtpFecha.ValueChanged += dtpFecha_ValueChanged;
             // 
             // label5
             // 
@@ -126,6 +128,7 @@
             btnAsignar.TabIndex = 9;
             btnAsignar.Text = "Asignar";
             btnAsignar.UseVisualStyleBackColor = true;
+            btnAsignar.Click += btnAsignar_Click;
             // 
             // lblVerCita
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppGestionClinica.Forms.Recepcion;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace AppGestionClinica.Forms
         public frmRecepcionista()
         {
             InitializeComponent();
+        }
+
+        private void btnCitas_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new FrmCitas().ShowDialog();
         }
     }
 }

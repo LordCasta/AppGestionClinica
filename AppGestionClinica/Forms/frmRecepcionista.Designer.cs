@@ -51,6 +51,7 @@
             btnCitas.TabIndex = 1;
             btnCitas.Text = "Citas";
             btnCitas.UseVisualStyleBackColor = true;
+            btnCitas.Click += btnCitas_Click;
             // 
             // btnPagos
             // 
