@@ -13,16 +13,18 @@ namespace AppGestionClinica.Forms
 {
     public partial class FrmDoctor : Form
     {
-        public FrmDoctor()
+        int _doctorId;
+        public FrmDoctor(int doctorId)
         {
             InitializeComponent();
+            _doctorId = doctorId;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Hide();
-            new FrmTratamientosDoctor().ShowDialog();
+            new FrmTratamientosDoctor(_doctorId).ShowDialog();
         }
     }
 }

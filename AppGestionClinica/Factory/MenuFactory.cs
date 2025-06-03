@@ -9,13 +9,13 @@ namespace AppGestionClinica.Factory
 {
     public class MenuFactory
     {
-        public static Form MenuRol(string rol)
+        public static Form MenuRol(string rol, int? doctorId = null)
         {
             return rol switch
             {
                 "Administrador" => new FrmAdmin(),
                 "Recepcionista" => new frmRecepcionista(),
-                "Doctor" => new FrmDoctor(),
+                "Doctor"  => doctorId.Value > 0 ? new FrmDoctor(doctorId.Value) : throw new Exception("DoctorID requerido para el rol Doctor"),
                 _ => throw new Exception("Rol no válido")
             };
         }

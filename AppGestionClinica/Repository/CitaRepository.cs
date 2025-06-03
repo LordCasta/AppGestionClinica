@@ -110,8 +110,32 @@ namespace AppGestionClinica.Repository
             return lista;
         }
 
+        public List<Paciente> ObtenerPacientesConCitaDelDoctor(int doctorId)
+        {
+            const string sql = @"
+        SELECT DISTINCT P.PacienteID, P.Nombre
+        FROM Citas C
+        INNER JOIN Pacientes P ON P.PacienteID = C.PacienteID
+        WHERE C.DoctorID = @DoctorID";
 
-      
+            var lista = new List<Paciente>();
+
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@DoctorID", doctorId);
+            using var rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                lista.Add(new Paciente
+                {
+                    PacienteID = (int)rdr["PacienteID"],
+                    Nombre = rdr["Nombre"].ToString()
+                });
+            }
+
+            return lista;
+        }
+
         public void Actualizar(Cita c)
         {
             const string sql = @"

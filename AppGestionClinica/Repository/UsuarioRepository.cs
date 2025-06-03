@@ -51,7 +51,8 @@ namespace AppGestionClinica.Repository
                 UsuarioID = (int)rdr["UsuarioID"],
                 Username = (string)rdr["Username"],
                 Password = (string)rdr["Password"],
-                Rol = (string)rdr["Rol"]
+                Rol = (string)rdr["Rol"],
+                DoctorID = rdr["DoctorID"] == DBNull.Value ? (int?)null : Convert.ToInt32(rdr["DoctorID"]) // Maneja DoctorID como nullable
             };
             return null;
         }
@@ -70,7 +71,7 @@ namespace AppGestionClinica.Repository
                     Username = (string)rdr["Username"],
                     Password = (string)rdr["Password"],
                     Rol = (string)rdr["Rol"],
-                    DoctorID = rdr["DoctorID"] as int? // Maneja DoctorID como nullable
+                    DoctorID = rdr["DoctorID"] == DBNull.Value ? (int?)null : Convert.ToInt32(rdr["DoctorID"]) // Maneja DoctorID como nullable
                 });
             }
             return list;

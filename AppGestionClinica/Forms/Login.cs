@@ -41,8 +41,11 @@ namespace AppGestionClinica.Forms
                 lblError.Visible = false;
                 MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide(); 
-                
-                MenuFactory.MenuRol(usuario.Rol).ShowDialog();
+
+                if(usuario.Rol == "Doctor")
+                    MenuFactory.MenuRol(usuario.Rol, usuario.DoctorID).ShowDialog();
+                else
+                    MenuFactory.MenuRol(usuario.Rol).ShowDialog();
 
             }
             else

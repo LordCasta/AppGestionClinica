@@ -51,23 +51,33 @@ namespace AppGestionClinica.Repository
             return list;
         }
 
-        public Tratamiento ObtenerPorId(int id)
+        public List<Tratamiento> ObtenerPorPaciente(int pacienteId)
         {
-            const string sql = "SELECT * FROM Tratamientos WHERE TratamientoID=@id";
-            using var cmd = new SqlCommand(sql, _conn);
-            cmd.Parameters.AddWithValue("@id", id);
+            const string sql = @"
+            SELECT * FROM Tratamientos
+            WHERE PacienteID = @PacienteID
+            ORDER BY FechaInicio DESC";
+
+            var lista = new List<Tratamiento>();
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@PacienteID", pacienteId);
             using var rdr = cmd.ExecuteReader();
-            if (rdr.Read()) return new Tratamiento
+
+            while (rdr.Read())
             {
-                TratamientoID = (int)rdr["TratamientoID"],
-                PacienteID = (int)rdr["PacienteID"],
-                TipoTratamiento = (string)rdr["TipoTratamiento"],
-                FechaInicio = (DateTime)rdr["FechaInicio"],
-                Duracion = (int)rdr["Duracion"],
-                CostoTotal = (decimal)rdr["CostoTotal"],
-                SaldoPendiente = (decimal)rdr["SaldoPendiente"]
-            };
-            return null;
+                lista.Add(new Tratamiento
+                {
+                    TratamientoID = (int)rdr["TratamientoID"],
+                    PacienteID = (int)rdr["PacienteID"],
+                    TipoTratamiento = rdr["TipoTratamiento"].ToString(),
+                    FechaInicio = Convert.ToDateTime(rdr["FechaInicio"]),
+                    Duracion = (int)rdr["Duracion"],
+                    CostoTotal = (decimal)rdr["CostoTotal"],
+                    SaldoPendiente = (decimal)rdr["SaldoPendiente"]
+                });
+            }
+
+            return lista;
         }
 
         public void Actualizar(Tratamiento t)
