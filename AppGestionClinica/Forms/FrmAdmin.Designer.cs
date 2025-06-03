@@ -31,6 +31,7 @@
             label1 = new Label();
             btnDoctores = new Button();
             btnPacientes = new Button();
+            btnUsuarios = new Button();
             SuspendLayout();
             // 
             // label1
@@ -62,11 +63,22 @@
             btnPacientes.Text = "Pacientes";
             btnPacientes.UseVisualStyleBackColor = true;
             // 
+            // btnUsuarios
+            // 
+            btnUsuarios.Location = new Point(568, 92);
+            btnUsuarios.Name = "btnUsuarios";
+            btnUsuarios.Size = new Size(141, 69);
+            btnUsuarios.TabIndex = 3;
+            btnUsuarios.Text = "Usuarios";
+            btnUsuarios.UseVisualStyleBackColor = true;
+            btnUsuarios.Click += btnUsuarios_Click;
+            // 
             // FrmAdmin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnUsuarios);
             Controls.Add(btnPacientes);
             Controls.Add(btnDoctores);
             Controls.Add(label1);
@@ -81,5 +93,6 @@
         private Label label1;
         private Button btnDoctores;
         private Button btnPacientes;
+        private Button btnUsuarios;
     }
 }
