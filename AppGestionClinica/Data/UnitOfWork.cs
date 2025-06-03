@@ -1,4 +1,5 @@
 ﻿using AppGestionClinica.Repository;
+using AppGestionClinica.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace AppGestionClinica.Data
 {
     public class UnitOfWork
     {
-        public PacienteRepository Pacientes { get; }
-        public DoctorRepository Doctores { get; }
-        public UsuarioRepository Usuarios { get; }
-        public CitaRepository Citas { get; }
-        public TratamientoRepository Tratamientos { get; }
-        public PagoRepository Pagos { get; }
+        public IPacienteRepository Pacientes { get; }
+        public IDoctorRepository Doctores { get; }
+        public IUsuarioRepository Usuarios { get; }
+        public ICitaRepository Citas { get; }
+        public ITratamientoRepository Tratamientos { get; }
+        public IPagoRepository Pagos { get; }
 
         public UnitOfWork()
         {
