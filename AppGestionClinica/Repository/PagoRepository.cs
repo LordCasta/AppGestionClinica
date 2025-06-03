@@ -26,6 +26,39 @@ namespace AppGestionClinica.Repository
             cmd.ExecuteNonQuery();
         }
 
+        public List<Pago> ObtenerPorTratamiento(int tratamientoId)
+        {
+            const string sql = @"SELECT * FROM Pagos WHERE TratamientoID = @TratamientoID ORDER BY FechaPago DESC";
+
+            var lista = new List<Pago>();
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@TratamientoID", tratamientoId);
+            using var rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                lista.Add(new Pago
+                {
+                    PagoID = (int)rdr["PagoID"],
+                    TratamientoID = (int)rdr["TratamientoID"],
+                    FechaPago = (DateTime)rdr["FechaPago"],
+                    Monto = (decimal)rdr["Monto"],
+                    MetodoPago = rdr["MetodoPago"].ToString()
+                });
+            }
+
+            return lista;
+        }
+
+        public decimal ObtenerTotalPagado(int tratamientoId)
+        {
+            const string sql = @"SELECT ISNULL(SUM(Monto), 0) FROM Pagos WHERE TratamientoID = @TratamientoID";
+
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@TratamientoID", tratamientoId);
+            return Convert.ToDecimal(cmd.ExecuteScalar());
+        }
+
         public List<Pago> ObtenerTodos()
         {
             var list = new List<Pago>();
@@ -46,22 +79,7 @@ namespace AppGestionClinica.Repository
             return list;
         }
 
-        public Pago ObtenerPorId(int id)
-        {
-            const string sql = "SELECT * FROM Pagos WHERE PagoID=@id";
-            using var cmd = new SqlCommand(sql, _conn);
-            cmd.Parameters.AddWithValue("@id", id);
-            using var rdr = cmd.ExecuteReader();
-            if (rdr.Read()) return new Pago
-            {
-                PagoID = (int)rdr["PagoID"],
-                TratamientoID = (int)rdr["TratamientoID"],
-                FechaPago = (DateTime)rdr["FechaPago"],
-                Monto = (decimal)rdr["Monto"],
-                MetodoPago = (string)rdr["MetodoPago"]
-            };
-            return null;
-        }
+      
 
         public void Eliminar(int id)
         {
