@@ -32,7 +32,7 @@ namespace AppGestionClinica.Forms.Recepcion
 
         private void CargarCitasPorDoctor()
         {
-            if (cmbDoctor.SelectedItem is Doctor doctor)
+            if (cmbDoctor.SelectedItem is Entities.Doctor doctor)
             {
                 dgvDoctores.DataSource = _uow.Citas.ObtenerPorDoctor(doctor.DoctorID);
             }

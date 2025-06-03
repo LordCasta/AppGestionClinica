@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppGestionClinica.Forms.Doctor;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace AppGestionClinica.Forms
         public FrmDoctor()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            new FrmTratamientosDoctor().ShowDialog();
         }
     }
 }

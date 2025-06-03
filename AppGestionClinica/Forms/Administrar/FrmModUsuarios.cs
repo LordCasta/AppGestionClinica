@@ -150,7 +150,7 @@ namespace AppGestionClinica.Forms.Administrar
                 Password = txtContraseña.Text.Trim(),
                 Rol = cmbRol.SelectedItem.ToString(),
                 DoctorID = (cmbRol.SelectedItem.ToString() == "Doctor" && cmbDoctor.SelectedItem != null)
-                    ? ((Doctor)cmbDoctor.SelectedItem).DoctorID
+                    ? ((Entities.Doctor)cmbDoctor.SelectedItem).DoctorID
                     : (int?)null
             };
 

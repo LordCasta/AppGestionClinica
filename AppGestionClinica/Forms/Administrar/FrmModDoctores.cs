@@ -1,6 +1,7 @@
 ﻿using AppGestionClinica.Data;
 using AppGestionClinica.Entities;
 using AppGestionClinica.Repository;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ namespace AppGestionClinica.Forms.Administrar
     public partial class FrmModDoctores : Form
     {
         UnitOfWork repo = new UnitOfWork();
-        BindingList<Doctor> listaDoctores;
+        BindingList<Entities.Doctor> listaDoctores;
         private int? doctorSeleccionadoId = null;
         public FrmModDoctores()
         {
@@ -40,7 +41,7 @@ namespace AppGestionClinica.Forms.Administrar
 
         private void CargarDoctores()
         {
-            listaDoctores = new BindingList<Doctor>(repo.Doctores.ObtenerTodos());
+            listaDoctores = new BindingList<Entities.Doctor>(repo.Doctores.ObtenerTodos());
             dgvDoctores.DataSource = listaDoctores;
 
             // Opcional: ocultar la columna ID si no quieres editarla
@@ -73,7 +74,7 @@ namespace AppGestionClinica.Forms.Administrar
                 return;
             }
 
-            var doctor = new Doctor
+            var doctor = new Entities.Doctor
             {
                 Nombre = txtNombre.Text,
                 Especializacion = cmbEspecializacion.Text,
@@ -99,7 +100,7 @@ namespace AppGestionClinica.Forms.Administrar
                 string nuevaEsp = fila.Cells["Especializacion"].Value.ToString();
                 string nuevoTel = fila.Cells["Telefono"].Value.ToString();
 
-                var doctor = new Doctor
+                var doctor = new Entities.Doctor
                 {
                     DoctorID = doctorId,
                     Nombre = nuevoNombre,

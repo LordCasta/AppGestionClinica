@@ -55,7 +55,7 @@ namespace AppGestionClinica.Forms.Recepcion
         {
             if (cmbDoctor.SelectedItem == null) return;
 
-            int doctorId = ((Doctor)cmbDoctor.SelectedItem).DoctorID;
+            int doctorId = ((Entities.Doctor)cmbDoctor.SelectedItem).DoctorID;
             DateTime fecha = dtpFecha.Value.Date;
 
             var horasOcupadas = _uow.Citas.ObtenerHorasOcupadas(doctorId, fecha);
@@ -85,7 +85,7 @@ namespace AppGestionClinica.Forms.Recepcion
             var cita = new Cita
             {
                 PacienteID = ((Paciente)cmbPaciente.SelectedItem).PacienteID,
-                DoctorID = ((Doctor)cmbDoctor.SelectedItem).DoctorID,
+                DoctorID = ((Entities.Doctor)cmbDoctor.SelectedItem).DoctorID,
                 Fecha = dtpFecha.Value.Date,
                 Hora = TimeSpan.Parse(cmbHora.SelectedItem.ToString()),
                 Estado = "Programada"
