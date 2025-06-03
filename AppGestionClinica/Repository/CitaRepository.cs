@@ -62,24 +62,56 @@ namespace AppGestionClinica.Repository
             return lista;
         }
 
-        public Cita ObtenerPorId(int id)
+        public List<dynamic> ObtenerPorDoctor(int doctorId)
         {
-            const string sql = "SELECT * FROM Citas WHERE CitaID=@id";
-            using var cmd = new SqlCommand(sql, _conn);
-            cmd.Parameters.AddWithValue("@id", id);
+            var lista = new List<dynamic>();
+            string sql = @"SELECT CitaID, P.Nombre AS Paciente, Fecha, Hora, Estado
+                   FROM Citas C
+                   JOIN Pacientes P ON P.PacienteID = C.PacienteID
+                   WHERE C.DoctorID = @DoctorID";
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@DoctorID", doctorId);
             using var rdr = cmd.ExecuteReader();
-            if (rdr.Read()) return new Cita
+            while (rdr.Read())
             {
-                CitaID = (int)rdr["CitaID"],
-                PacienteID = (int)rdr["PacienteID"],
-                DoctorID = (int)rdr["DoctorID"],
-                Fecha = (DateTime)rdr["Fecha"],
-                Hora = (TimeSpan)rdr["Hora"],
-                Estado = (string)rdr["Estado"]
-            };
-            return null;
+                lista.Add(new
+                {
+                    CitaID = (int)rdr["CitaID"],
+                    Paciente = rdr["Paciente"].ToString(),
+                    Fecha = (DateTime)rdr["Fecha"],
+                    Hora = TimeSpan.Parse(rdr["Hora"].ToString()),
+                    Estado = rdr["Estado"].ToString()
+                });
+            }
+            return lista;
         }
 
+        public List<dynamic> ObtenerPorPaciente(int pacienteId)
+        {
+            var lista = new List<dynamic>();
+            string sql = @"SELECT CitaID, D.Nombre AS Doctor, Fecha, Hora, Estado
+                   FROM Citas C
+                   JOIN Doctores D ON D.DoctorID = C.DoctorID
+                   WHERE C.PacienteID = @PacienteID";
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@PacienteID", pacienteId);
+            using var rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                lista.Add(new
+                {
+                    CitaID = (int)rdr["CitaID"],
+                    Doctor = rdr["Doctor"].ToString(),
+                    Fecha = (DateTime)rdr["Fecha"],
+                    Hora = TimeSpan.Parse(rdr["Hora"].ToString()),
+                    Estado = rdr["Estado"].ToString()
+                });
+            }
+            return lista;
+        }
+
+
+      
         public void Actualizar(Cita c)
         {
             const string sql = @"
