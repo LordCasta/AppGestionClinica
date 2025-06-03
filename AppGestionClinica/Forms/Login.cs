@@ -1,4 +1,5 @@
-﻿using AppGestionClinica.Repository;
+﻿using AppGestionClinica.Factory;
+using AppGestionClinica.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,21 +41,8 @@ namespace AppGestionClinica.Forms
                 MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide(); 
                 
-                switch(usuario.Rol)
-                {
-                    case "Administrador":
-                        new FrmAdmin().ShowDialog();
-                        break;
-                    case "Doctor":
-                        //new FrmDoctor().ShowDialog();
-                        break;
-                    case "Recepcionista":
-                        new frmRecepcionista().ShowDialog();
-                        break;
-                    default:
-                        MessageBox.Show("Rol no reconocido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
+                MenuFactory.MenuRol(usuario.Rol).ShowDialog();
+
             }
             else
             {
