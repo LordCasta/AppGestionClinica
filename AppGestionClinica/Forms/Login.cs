@@ -49,7 +49,7 @@ namespace AppGestionClinica.Forms
                         //new FrmDoctor().ShowDialog();
                         break;
                     case "Recepcionista":
-                        //new FrmRecepcionista().ShowDialog();
+                        new frmRecepcionista().ShowDialog();
                         break;
                     default:
                         MessageBox.Show("Rol no reconocido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
