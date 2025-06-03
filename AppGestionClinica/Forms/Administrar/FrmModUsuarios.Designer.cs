@@ -36,10 +36,11 @@
             txtContraseña = new TextBox();
             label5 = new Label();
             cmbRol = new ComboBox();
-            button1 = new Button();
+            btnCrear = new Button();
             label6 = new Label();
             cmbDoctor = new ComboBox();
             dgvUsuarios = new DataGridView();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
             SuspendLayout();
             // 
@@ -111,15 +112,17 @@
             cmbRol.Name = "cmbRol";
             cmbRol.Size = new Size(211, 23);
             cmbRol.TabIndex = 7;
+            cmbRol.SelectedIndexChanged += cmbRol_SelectedIndexChanged;
             // 
-            // button1
+            // btnCrear
             // 
-            button1.Location = new Point(80, 380);
-            button1.Name = "button1";
-            button1.Size = new Size(132, 26);
-            button1.TabIndex = 8;
-            button1.Text = "Crear";
-            button1.UseVisualStyleBackColor = true;
+            btnCrear.Location = new Point(80, 380);
+            btnCrear.Name = "btnCrear";
+            btnCrear.Size = new Size(132, 26);
+            btnCrear.TabIndex = 8;
+            btnCrear.Text = "Crear";
+            btnCrear.UseVisualStyleBackColor = true;
+            btnCrear.Click += btnCrear_Click;
             // 
             // label6
             // 
@@ -146,16 +149,30 @@
             dgvUsuarios.Name = "dgvUsuarios";
             dgvUsuarios.Size = new Size(813, 588);
             dgvUsuarios.TabIndex = 11;
+            dgvUsuarios.CellClick += dgvUsuarios_CellClick;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.IndianRed;
+            label7.Location = new Point(36, 27);
+            label7.Name = "label7";
+            label7.Size = new Size(44, 20);
+            label7.TabIndex = 12;
+            label7.Text = "Atras";
+            label7.Click += label7_Click;
             // 
             // FrmModUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1246, 749);
+            Controls.Add(label7);
             Controls.Add(dgvUsuarios);
             Controls.Add(cmbDoctor);
             Controls.Add(label6);
-            Controls.Add(button1);
+            Controls.Add(btnCrear);
             Controls.Add(cmbRol);
             Controls.Add(label5);
             Controls.Add(txtContraseña);
@@ -181,9 +198,10 @@
         private TextBox txtContraseña;
         private Label label5;
         private ComboBox cmbRol;
-        private Button button1;
+        private Button btnCrear;
         private Label label6;
         private ComboBox cmbDoctor;
         private DataGridView dgvUsuarios;
+        private Label label7;
     }
 }

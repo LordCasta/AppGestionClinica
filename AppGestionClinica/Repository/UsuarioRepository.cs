@@ -69,11 +69,38 @@ namespace AppGestionClinica.Repository
                     UsuarioID = (int)rdr["UsuarioID"],
                     Username = (string)rdr["Username"],
                     Password = (string)rdr["Password"],
-                    Rol = (string)rdr["Rol"]
+                    Rol = (string)rdr["Rol"],
+                    DoctorID = rdr["DoctorID"] as int? // Maneja DoctorID como nullable
                 });
             }
             return list;
         }
+
+        public void Actualizar(Usuario usuario)
+        {
+            const string sql = @"
+            UPDATE Usuarios
+            SET Username = @Username,
+                Password = @Password,
+                Rol = @Rol,
+                DoctorID = @DoctorID
+            WHERE UsuarioID = @UsuarioID";
+
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@Username", usuario.Username);
+            cmd.Parameters.AddWithValue("@Password", usuario.Password);
+            cmd.Parameters.AddWithValue("@Rol", usuario.Rol);
+
+            // Usa DBNull si DoctorID es null
+            if (usuario.DoctorID.HasValue)
+                cmd.Parameters.AddWithValue("@DoctorID", usuario.DoctorID.Value);
+            else
+                cmd.Parameters.AddWithValue("@DoctorID", DBNull.Value);
+
+            cmd.Parameters.AddWithValue("@UsuarioID", usuario.UsuarioID);
+            cmd.ExecuteNonQuery();
+        }
+
 
         public void Eliminar(int id)
         {
