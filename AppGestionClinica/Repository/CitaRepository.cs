@@ -49,6 +49,19 @@ namespace AppGestionClinica.Repository
             return list;
         }
 
+        public List<TimeSpan> ObtenerHorasOcupadas(int doctorId, DateTime fecha)
+        {
+            const string sql = @"SELECT Hora FROM Citas WHERE DoctorID = @DoctorID AND Fecha = @Fecha";
+            var lista = new List<TimeSpan>();
+            using var cmd = new SqlCommand(sql, Database.GetConnection());
+            cmd.Parameters.AddWithValue("@DoctorID", doctorId);
+            cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                lista.Add(TimeSpan.Parse(reader["Hora"].ToString()));
+            return lista;
+        }
+
         public Cita ObtenerPorId(int id)
         {
             const string sql = "SELECT * FROM Citas WHERE CitaID=@id";
