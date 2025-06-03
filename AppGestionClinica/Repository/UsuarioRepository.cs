@@ -26,6 +26,19 @@ namespace AppGestionClinica.Repository
             cmd.ExecuteNonQuery();
         }
 
+        public void AgregarDoctor(Usuario u, int doctorId)
+        {
+            const string sql = @"
+                INSERT INTO Usuarios (Username,Password,Rol,DoctorID)
+                VALUES (@Username,@Password,@Rol,@DoctorID)";
+            using var cmd = new SqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@Username", u.Username);
+            cmd.Parameters.AddWithValue("@Password", u.Password);
+            cmd.Parameters.AddWithValue("@Rol", u.Rol);
+            cmd.Parameters.AddWithValue("@DoctorID", doctorId);
+            cmd.ExecuteNonQuery();
+        }
+
         public Usuario ObtenerPorCredenciales(string user, string pass)
         {
             const string sql = "SELECT * FROM Usuarios WHERE Username=@u AND Password=@p";
