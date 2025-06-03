@@ -11,13 +11,24 @@ namespace AppGestionClinica.Factory
     {
         public static Form MenuRol(string rol, int? doctorId = null)
         {
-            return rol switch
+            try
             {
-                "Administrador" => new FrmAdmin(),
-                "Recepcionista" => new frmRecepcionista(),
-                "Doctor"  => doctorId.Value > 0 ? new FrmDoctor(doctorId.Value) : throw new Exception("DoctorID requerido para el rol Doctor"),
-                _ => throw new Exception("Rol no válido")
-            };
+                if (rol == "Doctor" && (!doctorId.HasValue || doctorId <= 0))
+                    throw new Exception("DoctorID requerido para el rol Doctor");
+
+                return rol switch
+                {
+                    "Administrador" => new FrmAdmin(),
+                    "Recepcionista" => new frmRecepcionista(),
+                    "Doctor" => new FrmDoctor(doctorId.Value),
+                    _ => throw new Exception("Rol no válido")
+                };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar menú: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new Form(); // Devuelve un formulario vacío para evitar que el flujo reviente
+            }
         }
     }
 }
