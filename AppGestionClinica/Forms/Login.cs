@@ -24,34 +24,40 @@ namespace AppGestionClinica.Forms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            string user = txtUsuario.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
+            try
             {
-                lblError.Text = "Debe ingresar usuario y contraseña";
-                lblError.Visible = true;
-                return;
-            }
+                string user = txtUsuario.Text.Trim();
+                string password = txtPassword.Text.Trim();
 
-            var usuario = _uof.Usuarios.ObtenerPorCredenciales(user, password);
+                if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
+                {
+                    lblError.Text = "Debe ingresar usuario y contraseña";
+                    lblError.Visible = true;
+                    return;
+                }
 
-            if (usuario != null)
-            {
-                lblError.Visible = false;
-                MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide(); 
+                var usuario = _uof.Usuarios.ObtenerPorCredenciales(user, password);
 
-                if(usuario.Rol == "Doctor")
-                    MenuFactory.MenuRol(usuario.Rol, usuario.DoctorID).ShowDialog();
+                if (usuario != null)
+                {
+                    lblError.Visible = false;
+                    MessageBox.Show($"Bienvenido {usuario.Username} ({usuario.Rol})", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
+
+                    if (usuario.Rol == "Doctor")
+                        MenuFactory.MenuRol(usuario.Rol, usuario.DoctorID).ShowDialog();
+                    else
+                        MenuFactory.MenuRol(usuario.Rol).ShowDialog();
+                }
                 else
-                    MenuFactory.MenuRol(usuario.Rol).ShowDialog();
-
+                {
+                    lblError.Text = "Usuario o contraseña incorrectos";
+                    lblError.Visible = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "Usuario o contraseña incorrectos";
-                lblError.Visible = true;
+                MessageBox.Show("Error al intentar iniciar sesión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
